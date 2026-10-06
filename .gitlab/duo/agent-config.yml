@@ -1,0 +1,18 @@
+# Apply on the default branch. The sponsor project's actual executor must validate it.
+# Preserve GitLab's default image and sandbox rather than replacing its toolchain.
+setup_script:
+  - python3 --version
+  - node --version
+  - npm ci --ignore-scripts
+  - npx playwright install --with-deps chromium firefox
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - node_modules/
+network_policy:
+  include_recommended_allowed: true
+  allowed_domains:
+    - localhost
+    - 127.0.0.1
