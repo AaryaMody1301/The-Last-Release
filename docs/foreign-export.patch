@@ -1,0 +1,13 @@
+diff --git a/release.py b/release.py
+index 3abeaa2..23eacbb 100644
+--- a/release.py
++++ b/release.py
+@@ -96,7 +96,7 @@ def render_html(root, payload):
+ 
+ def export_for(root, snapshot, account, build):
+     notes = [{k: n[k] for k in ("id", "title", "body", "updated_at")}
+-             for n in snapshot["notes"] if n["owner_id"] == account["id"] and not n["deleted"]]
++             for n in snapshot["notes"] if not n["deleted"]]
+     return render_html(root, {"version": 1, "mode": "offline", "account": account,
+                              "notes": notes, "build": build})
+ # EXPORT IMPLEMENTATION END

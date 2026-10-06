@@ -1,0 +1,86 @@
+{
+  "recorded_on": "2026-10-06",
+  "scope": "Disposable synthetic fixtures only; no owner service was retired.",
+  "repository": "https://github.com/AaryaMody1301/The-Last-Release",
+  "commit": "d52a76c09a2629fa6cb5360d71fc3f4daa36ebd8",
+  "workflow_run": "https://github.com/AaryaMody1301/The-Last-Release/actions/runs/37489071487",
+  "job": "https://github.com/AaryaMody1301/The-Last-Release/actions/runs/37489071487/job/112356679719",
+  "artifact_id": 11425030775,
+  "artifact_sha256": "bef2cec6f4b6d6e4e1da760f46818a1552c3ea216212a048674230c5d730e760",
+  "reports": {
+    "data/rehearsal/candidate/report.json": {
+      "accounts_checked": 2,
+      "browsers": [
+        "chromium",
+        "firefox"
+      ],
+      "checks": [
+        "trusted-contracts",
+        "private-data-fidelity",
+        "offline-edit-backup-restore"
+      ],
+      "duo_evidence": "not established by local verification",
+      "http_attempts": 0,
+      "manifest_sha256": "8372ac798a0fec1b2e692e949d352768dea9d1897de91d13307646975a87d97c",
+      "notes_preserved": 6,
+      "revision": 1,
+      "source": {
+        "commit": "d52a76c09a2629fa6cb5360d71fc3f4daa36ebd8",
+        "sha256": "5cfee27ddbf69524ef97332190f1c815f25f01014bc906bcb5d7ad424cb961eb"
+      },
+      "status": "ready",
+      "trusted_ref": "d52a76c09a2629fa6cb5360d71fc3f4daa36ebd8",
+      "unsupported": [
+        "attachments",
+        "collaboration",
+        "automatic file saving",
+        "arbitrary applications"
+      ],
+      "verified_at": "2026-10-06T15:39:02.382457+00:00",
+      "version": 1,
+      "will_sha256": "aceba6095c8db03a9ac41a7b679ac4f7a37b17662b3302d0364269909b9ece09"
+    },
+    "data/rehearsal/candidate/browser-report.json": {
+      "version": 1,
+      "browsers": [
+        "chromium",
+        "firefox"
+      ],
+      "browser_versions": {
+        "chromium": "151.0.7922.34",
+        "firefox": "153.0"
+      },
+      "accounts_checked": 2,
+      "fixture_accounts_checked": 4,
+      "http_attempts": 0,
+      "original_fixture_server_stopped": true,
+      "manifest_sha256": "8372ac798a0fec1b2e692e949d352768dea9d1897de91d13307646975a87d97c",
+      "duration_ms": 16930
+    },
+    "test-results/browser-report.json": {
+      "version": 1,
+      "browsers": [
+        "chromium",
+        "firefox"
+      ],
+      "browser_versions": {
+        "chromium": "151.0.7922.34",
+        "firefox": "153.0"
+      },
+      "accounts_checked": 2,
+      "fixture_accounts_checked": 4,
+      "http_attempts": 0,
+      "original_fixture_server_stopped": true,
+      "manifest_sha256": null,
+      "duration_ms": 12062
+    },
+    "data/rehearsal/candidate/retirement.json": {
+      "approval": "3ec1d2a882588becd3e714adfe6b0dadd25ba860a2190029663f324783d5a156",
+      "database_preserved": true,
+      "manifest_sha256": "8372ac798a0fec1b2e692e949d352768dea9d1897de91d13307646975a87d97c",
+      "mode": "retired",
+      "original_port_closed": true,
+      "trusted_ref": "d52a76c09a2629fa6cb5360d71fc3f4daa36ebd8"
+    }
+  }
+}
