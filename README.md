@@ -17,6 +17,9 @@ See the [plan check](docs/PLAN-CHECK.md), [verified evidence](docs/VALIDATION.md
 and [next GitLab/Duo steps](docs/DUO.md). The native Duo demonstration and
 public GitLab submission remain pending.
 
+While sponsor onboarding is pending, the [submission and 2:45 recording draft](docs/SUBMISSION-DRAFT.md)
+is prepared with explicit placeholders for the real GitLab/Duo evidence.
+
 ## Run the notebook
 
 Requires Python 3.12+, Git, and a browser. From the repository directory:

@@ -14,6 +14,10 @@ never label local scripts or GitHub Actions as a Duo session.
 
 ## Provision and smoke-test
 
+Owner update, 6 October 2026: onboarding is still pending. The
+[submission and recording draft](SUBMISSION-DRAFT.md) is ready for completion
+after the sponsor project and real execution evidence are available.
+
 1. Join [the hackathon](https://gitlab-transcend.devpost.com/) and complete
    [contributor onboarding](https://contributors.gitlab.com/transcend-hackathon/).
    Use the sponsor-provisioned GitLab project; import the new GitHub source
