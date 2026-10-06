@@ -7,8 +7,10 @@ Deadline: **27 October 2026, 13:00 UTC / 18:30 IST**.
 
 The native flow is versioned and follows GitLab's documented v1 schema.
 It has **not been registered or executed in a provisioned GitLab project**.
-GitLab CI/Pages and Firefox also require their first actual run. Record URLs
-below only after they exist; never label local scripts as a Duo session.
+Chromium, Firefox, contracts, and the complete disposable rehearsal passed on
+the merged GitHub build; see [VALIDATION.md](VALIDATION.md). GitLab CI/Pages
+still require their first actual run. Record URLs below only after they exist;
+never label local scripts or GitHub Actions as a Duo session.
 
 ## Provision and smoke-test
 
@@ -46,6 +48,34 @@ instructions alone are not an authorization boundary.
 ## Creative failure → repair demonstration
 
 Use a clearly labelled **synthetic-only demo branch**, never real note data.
+The [foreign-export.patch](foreign-export.patch) is a one-line fault fixture,
+not a change to the working exporter. It was applied to a disposable checkout:
+the existing exact-export check failed with six records instead of three per
+account. The working merged exporter still passes all 14 contracts.
+
+After importing/reviewing the complete source in the sponsor project and
+passing its baseline pipeline, create the candidate from that reviewed main:
+
+```sh
+git switch main
+git pull --ff-only
+trusted=$(git rev-parse HEAD)
+git switch -c demo/synthetic-foreign-export
+git apply docs/foreign-export.patch
+git diff -- release.py
+git add release.py
+git commit -s -m "Synthetic-only demo: make private export fail ownership checks"
+python tests/contracts.py Contracts.test_exact_exports_and_fault_injection
+```
+
+The last command must fail with `Privacy or preservation failed: missing,
+altered, deleted, or foreign notes.` Keep that failure as the demo evidence.
+Push this candidate only to the sponsored
+GitLab project, open one draft repair MR labelled **SYNTHETIC ONLY — DO NOT
+MERGE UNREPAIRED**, and record its failing GitLab pipeline and `$trusted`
+in the issue template. Confirm free sponsor coverage before mentioning Duo.
+Do not merge the fault into the default branch or use it with an owner's DB.
+
 Make the exporter include all active accounts' notes by removing its owner
 predicate inside `export_for`. The independent snapshot check must reject
 the foreign canary even if the exporter writes a matching manifest checksum.

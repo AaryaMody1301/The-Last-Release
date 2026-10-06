@@ -1,51 +1,68 @@
-# Local validation — 6 October 2026
+# Verified development build — 6 October 2026
 
-This is a working local prototype, not a completed hackathon submission.
+GitHub [PR #1](https://github.com/AaryaMody1301/The-Last-Release/pull/1) merged
+as `d52a76c09a2629fa6cb5360d71fc3f4daa36ebd8`. Its source tree is
+`79f6bcef4cafad1e10801a3e613a13685a3fc898`, identical to the recovered build.
 
-Verified on Windows with Python 3.12.14, Node 24.18.0, Playwright 1.62.1,
-and installed Chrome 154.0.8037.98 (Chromium engine):
+The [merged-main run](https://github.com/AaryaMody1301/The-Last-Release/actions/runs/37489071487)
+and [survival job](https://github.com/AaryaMody1301/The-Last-Release/actions/runs/37489071487/job/112356679719)
+passed the following checks:
 
-- **14 standard-library contract checks pass.** They cover account isolation,
-  persistent CRUD, limits, empty exports, exact data fidelity, foreign/missing/
-  altered-note failures, interrupted packaging, snapshot/backup tampering,
-  dirty source, changed gate code, stale/forged approval, failed reverification,
-  final stop, public-output exclusions, and trusted-gate copies from Windows shells.
-- The real-browser drill passes for both synthetic accounts. Each downloads
-  a private HTML edition; the original disposable server stops and becomes
-  unreachable; fresh offline contexts read/search/create/edit/delete, save
-  backups, and restore exact edits and timestamps in another fresh context.
-- Passing editions make **zero observed offline HTTP(S) attempts**. A deliberate
-  dependency canary proves that CSP-blocked attempts are detected too, so
-  blocked dependencies cannot silently count as successful offline operation.
-- Keyboard/label/save-warning checks pass. Foreign, duplicate, and oversized
-  note backups leave the existing notebook intact. A 390-pixel viewport has
-  no horizontal overflow; the 1440-pixel interface was visually inspected.
-- The complete disposable rehearsal preserves **six active notes across two
-  accounts**, runs pinned verification, rejects a wrong approval, stops its
-  original server, and keeps the database and private editions.
-- The installed dependency lock resolves the expected three development
-  packages. Runtime dependency count is zero.
+| Check | Observed result |
+|---|---|
+| Python contracts | 14 passed |
+| Browser engines | Chromium 151.0.7922.34 and Firefox 153.0 |
+| Live download and offline drill | Both synthetic accounts passed |
+| Offline actions | Read, search, create, edit, delete, backup, fresh-context restore |
+| Observed offline HTTP(S) attempts | 0 |
+| Complete candidate rehearsal | 6 active notes preserved across 2 accounts |
+| Original disposable server | Stopped; original port closed |
+| Database after fixture retirement | Preserved |
+| Candidate browser drill duration | 16,930 ms |
 
-Reproduce with `python tests/contracts.py`, `npm run test:offline`, and
-`python tests/rehearsal.py --trusted-ref HEAD` from a clean committed checkout.
-Generated machine evidence lives under `test-results/` and each local
-`data/rehearsal*/candidate/`. Those private runtime directories are ignored.
+The tests include wrong-token and cross-account operations, exact data
+comparison, foreign/missing/altered-note negative controls, hostile text,
+invalid backups, empty editions, keyboard labels/navigation, interrupted
+packaging, changed source/controls/snapshot, forged/stale approvals, failed
+reverification, public-output exclusions, and reversible freeze. Only the
+disposable synthetic fixture is automatically retired.
 
-## Remaining external proof
+The original hosted report, browser reports, and receipt are preserved in
+[evidence/main-2026-10-06.json](evidence/main-2026-10-06.json). They are copied
+from GitHub artifact `11425030775`, whose ZIP SHA-256 is
+`bef2cec6f4b6d6e4e1da760f46818a1552c3ea216212a048674230c5d730e760`.
+They contain synthetic counts and digests, not notebook contents or tokens.
+The manifest SHA-256 for that completed run is
+`8372ac798a0fec1b2e692e949d352768dea9d1897de91d13307646975a87d97c`.
+This is historical evidence for the exact commit above, not approval for a
+later candidate or an owner's real notebook.
 
-Firefox is not installed in this environment; its run remains pending.
-An installation attempt reached a network access denial (`EACCES`); it did
-not produce a browser result.
-Both CI configurations request Chromium and Firefox, but hosted CI has not
-run. GitLab's browser job now includes the complete disposable rehearsal
-and retains its synthetic reports and retirement receipt. The new repair
-issue template provides the owner fields and failure/repair evidence register.
-The GitLab Duo definition still needs actual platform validation,
-registration, sponsored credit coverage, a capability smoke test, and a
-genuine failure/agent-repair/passing-pipeline demonstration. Public Pages and
-the YouTube submission video also remain pending.
+The generated public package was also checked locally: exactly `index.html`
+and `sample.html`, with an empty reader and explicitly synthetic sample.
+The [one-line fault fixture](foreign-export.patch) makes the existing
+exact-export contract reject a foreign-account export in a disposable clone.
+This preparation is not a Duo repair session.
 
-The GitHub repository was empty when inspected. This session's GitHub write
-tool requires approval, while session policy disallows approvals; no code was
-pushed and no PR was created. The completed source is in one local commit
-with the intended GitHub remote, ready for the owner to publish.
+## Reproduce
+
+```sh
+npm ci --ignore-scripts
+npx playwright install --with-deps chromium firefox
+python tests/contracts.py
+PYTHON=python TLR_BROWSERS=chromium,firefox npm run test:offline
+TLR_BROWSERS=chromium,firefox python tests/rehearsal.py --trusted-ref HEAD
+```
+
+Start from a clean committed checkout and a new rehearsal output directory.
+Private generated data remains ignored. In the current ChatGPT Linux
+environment, Python contracts pass but local browser executables are absent;
+the two-engine result above comes from the actual GitHub runner.
+
+## Remaining proof
+
+The project is a tested development prototype. Completion still requires a
+public canonical GitLab project, sponsor credit/compute confirmation, actual
+platform validation and enabling of the native flow, a capability smoke test,
+a genuine failing-pipeline → Duo repair → passing-pipeline record, GitLab
+Pages publication, and the public YouTube demo under three minutes.
+See [PLAN-CHECK.md](PLAN-CHECK.md) and [DUO.md](DUO.md).

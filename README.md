@@ -12,6 +12,11 @@ with Most Creative as the target. Python standard library, SQLite, one plain
 HTML interface, and a browser-test dependency. No paid API, cloud account,
 runtime packages, or frontend build step.
 
+The merged build passed its first hosted Chromium/Firefox rehearsal.
+See the [plan check](docs/PLAN-CHECK.md), [verified evidence](docs/VALIDATION.md),
+and [next GitLab/Duo steps](docs/DUO.md). The native Duo demonstration and
+public GitLab submission remain pending.
+
 ## Run the notebook
 
 Requires Python 3.12+, Git, and a browser. From the repository directory:
@@ -177,19 +182,20 @@ the interface. Hosting a dynamic notebook server is unnecessary.
 
 ## Publish the development source
 
-From this committed checkout, the owner can publish to the empty GitHub
-repository with:
+The development build is published on GitHub and PR #1 is merged. Recover
+the current development checkout with:
 
 ```sh
-git push -u origin main
+git clone https://github.com/AaryaMody1301/The-Last-Release.git
+cd The-Last-Release
 ```
 
-Use a normal push; an existing remote history must be reviewed rather than
-overwritten. The source archive also includes `The-Last-Release.bundle`
+The source archive also includes `The-Last-Release.bundle`
 when supplied through ChatGPT. Recover its committed checkout with
 `git clone The-Last-Release.bundle The-Last-Release`, then point `origin` at
 `https://github.com/AaryaMody1301/The-Last-Release.git` before pushing.
-Open the repository's Actions tab to inspect the first genuine hosted run.
+The [merged-main Actions run](https://github.com/AaryaMody1301/The-Last-Release/actions/runs/37489071487)
+is the first hosted evidence for the completed development build.
 
 Import that source into the sponsor-provisioned GitLab project. In GitLab,
 create a new issue using the **Last_Release_Repair** template, complete the
