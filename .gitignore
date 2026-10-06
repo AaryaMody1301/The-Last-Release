@@ -1,0 +1,11 @@
+data/
+node_modules/
+public/
+test-results/
+__pycache__/
+*.pyc
+*.sqlite3*
+*.db*
+.env*
+*.zip
+*.bundle

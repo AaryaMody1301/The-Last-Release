@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "app": "notebook",
+  "preserve": ["title", "body", "updated_at"],
+  "offline_actions": ["read", "search", "create", "edit", "delete", "backup", "restore"],
+  "privacy": "one-account-per-export",
+  "exclude": ["deleted_notes", "access_tokens"],
+  "retirement": "owner-approved"
+}

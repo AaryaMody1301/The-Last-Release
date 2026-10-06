@@ -1,0 +1,65 @@
+stages: [verify, package, publish]
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+
+contracts:
+  stage: verify
+  image: python:3.12-slim
+  before_script:
+    - apt-get update && apt-get install -y --no-install-recommends git
+  script:
+    - python tests/contracts.py
+
+offline_drill:
+  stage: verify
+  image: node:24-bookworm
+  timeout: 20 minutes
+  variables:
+    PYTHON: python3
+    TLR_BROWSERS: chromium,firefox
+  before_script:
+    - apt-get update && apt-get install -y --no-install-recommends python3 git
+    - npm ci --ignore-scripts
+    - npx playwright install --with-deps chromium firefox
+  script:
+    - npm run test:offline
+    - python3 tests/rehearsal.py --trusted-ref HEAD
+  artifacts:
+    when: always
+    paths:
+      - test-results/browser-report.json
+      - data/rehearsal/candidate/report.json
+      - data/rehearsal/candidate/browser-report.json
+      - data/rehearsal/candidate/retirement.json
+    expire_in: 30 days
+
+package:
+  stage: package
+  image: python:3.12-slim
+  needs: [contracts, offline_drill]
+  script:
+    - python release.py public --out public
+    - python -c "from pathlib import Path; assert {p.name for p in Path('public').iterdir()} == {'index.html', 'sample.html'}"
+  artifacts:
+    paths: [public/]
+    expire_in: 30 days
+
+pages:
+  stage: publish
+  image: python:3.12-slim
+  needs:
+    - job: package
+      artifacts: true
+  script:
+    - python -c "from pathlib import Path; assert {p.name for p in Path('public').iterdir()} == {'index.html', 'sample.html'}"
+  pages:
+    publish: public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+      allow_failure: true

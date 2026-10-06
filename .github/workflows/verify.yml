@@ -1,0 +1,40 @@
+name: Verify the software will
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  survival:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium firefox
+      - run: python tests/contracts.py
+      - run: npm run test:offline
+        env:
+          PYTHON: python
+          TLR_BROWSERS: chromium,firefox
+      - run: python tests/rehearsal.py --trusted-ref HEAD
+        env:
+          PYTHON: python
+          TLR_BROWSERS: chromium,firefox
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: synthetic-verification-evidence
+          path: |
+            test-results/browser-report.json
+            data/rehearsal/candidate/report.json
+            data/rehearsal/candidate/browser-report.json
+            data/rehearsal/candidate/retirement.json
+          if-no-files-found: ignore
